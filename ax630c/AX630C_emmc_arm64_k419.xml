@@ -17,8 +17,9 @@
       <Partition gap="0" id="optee_b" size="1024" />
       <Partition gap="0" id="dtb" size="1024" />
       <Partition gap="0" id="dtb_b" size="1024" />
-      <Partition gap="0" id="kernel" size="262144" />
-      <Partition gap="0" id="kernel_b" size="262144" />
+      <Partition gap="0" id="kernel" size="65536" />
+      <Partition gap="0" id="kernel_b" size="65536" />
+      <Partition gap="0" id="boot" size="131072" />
       <Partition gap="0" id="rootfs" size="29889536" />
     </Partitions>
     <ImgList>
@@ -84,7 +85,7 @@
           <Base>0x0</Base>
           <Size>0x0</Size>
         </Block>
-        <File>ddrinit_AX630C_emmc_arm64_k419_signed.bin</File>
+        <File>ddrinit.img</File>
         <Auth algo="0" />
         <Description>Download ddrinit image file</Description>
       </Img>
@@ -95,7 +96,7 @@
           <Base>0x0</Base>
           <Size>0x0</Size>
         </Block>
-        <File>atf_bl31_signed.bin</File>
+        <File>atf.img</File>
         <Auth algo="0" />
         <Description>Download atf image file</Description>
       </Img>
@@ -106,7 +107,7 @@
           <Base>0x0</Base>
           <Size>0x0</Size>
         </Block>
-        <File>atf_b_bl31_signed.bin</File>
+        <File>atf.img.1</File>
         <Auth algo="0" />
         <Description>Download atf_b image file</Description>
       </Img>
@@ -117,7 +118,7 @@
           <Base>0x0</Base>
           <Size>0x0</Size>
         </Block>
-        <File>u-boot_signed.bin</File>
+        <File>uboot.bin</File>
         <Auth algo="0" />
         <Description>Download uboot image file</Description>
       </Img>
@@ -128,7 +129,7 @@
           <Base>0x0</Base>
           <Size>0x0</Size>
         </Block>
-        <File>u-boot_b_signed.bin</File>
+        <File>uboot.bin.1</File>
         <Auth algo="0" />
         <Description>Download uboot_b image file</Description>
       </Img>
@@ -139,7 +140,7 @@
           <Base>0x0</Base>
           <Size>0x0</Size>
         </Block>
-        <File>axera_logo.bmp</File>
+        <File>logo.img</File>
         <Auth algo="0" />
         <Description>Download logo image file</Description>
       </Img>
@@ -150,7 +151,7 @@
           <Base>0x0</Base>
           <Size>0x0</Size>
         </Block>
-        <File>axera_logo.bmp.1</File>
+        <File>logo.img.1</File>
         <Auth algo="0" />
         <Description>Download logo_b image file</Description>
       </Img>
@@ -161,7 +162,7 @@
           <Base>0x0</Base>
           <Size>0x0</Size>
         </Block>
-        <File>optee_signed.bin</File>
+        <File>optee.img</File>
         <Auth algo="0" />
         <Description>Download optee image file</Description>
       </Img>
@@ -172,7 +173,7 @@
           <Base>0x0</Base>
           <Size>0x0</Size>
         </Block>
-        <File>optee_signed.bin.1</File>
+        <File>optee.img.1</File>
         <Auth algo="0" />
         <Description>Download optee_b image file</Description>
       </Img>
@@ -183,7 +184,7 @@
           <Base>0x0</Base>
           <Size>0x0</Size>
         </Block>
-        <File>AX630C_emmc_arm64_k419_signed.dtb</File>
+        <File>dtb.img</File>
         <Auth algo="0" />
         <Description>Download dtb image file</Description>
       </Img>
@@ -194,7 +195,7 @@
           <Base>0x0</Base>
           <Size>0x0</Size>
         </Block>
-        <File>AX630C_emmc_arm64_k419_signed.dtb.1</File>
+        <File>dtb.img.1</File>
         <Auth algo="0" />
         <Description>Download dtb_b image file</Description>
       </Img>
@@ -205,7 +206,7 @@
           <Base>0x0</Base>
           <Size>0x0</Size>
         </Block>
-        <File>boot_signed.bin</File>
+        <File>kernel.img</File>
         <Auth algo="0" />
         <Description>Download kernel image file</Description>
       </Img>
@@ -216,9 +217,20 @@
           <Base>0x0</Base>
           <Size>0x0</Size>
         </Block>
-        <File>boot_signed.bin.1</File>
+        <File>kernel.img.1</File>
         <Auth algo="0" />
         <Description>Download kernel_b image file</Description>
+      </Img>
+      <Img flag="1" name="BOOT" select="1">
+        <ID>BOOT</ID>
+        <Type>CODE</Type>
+        <Block id="boot">
+          <Base>0x0</Base>
+          <Size>0x0</Size>
+        </Block>
+        <File>bootfs.vfat</File>
+        <Auth algo="0" />
+        <Description>Download boot image file</Description>
       </Img>
       <Img flag="1" name="ROOTFS" select="1">
         <ID>ROOTFS</ID>
@@ -238,7 +250,7 @@
           <Base>0x0</Base>
           <Size>0x0</Size>
         </Block>
-        <File>spl_AX630C_emmc_arm64_k419_signed.bin</File>
+        <File>spl.img</File>
         <Auth algo="0" />
         <Description>Download spl image file</Description>
       </Img>
