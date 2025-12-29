@@ -20,7 +20,7 @@
       <Partition gap="0" id="kernel" size="65536" />
       <Partition gap="0" id="kernel_b" size="65536" />
       <Partition gap="0" id="boot" size="131072" />
-      <Partition gap="0" id="rootfs" size="29889536" />
+      <Partition gap="0" id="rootfs" size="0xffffffff" />
     </Partitions>
     <ImgList>
       <Img flag="2" name="INIT" select="1">
@@ -52,7 +52,7 @@
           <Base>0x3000000</Base>
           <Size>0x0</Size>
         </Block>
-        <File>fdl_AX630C_emmc_arm64_k419_signed.bin</File>
+        <File>fdl_AX630C_emmc_arm64_k419_sipeed_nanokvm_signed.bin</File>
         <Auth algo="0" />
         <Description>Download FDL1 image file</Description>
       </Img>
@@ -85,7 +85,7 @@
           <Base>0x0</Base>
           <Size>0x0</Size>
         </Block>
-        <File>ddrinit.img</File>
+        <File>ddrinit_AX630C_emmc_arm64_k419_sipeed_nanokvm_signed.bin</File>
         <Auth algo="0" />
         <Description>Download ddrinit image file</Description>
       </Img>
@@ -96,7 +96,7 @@
           <Base>0x0</Base>
           <Size>0x0</Size>
         </Block>
-        <File>atf.img</File>
+        <File>atf_bl31_signed.bin</File>
         <Auth algo="0" />
         <Description>Download atf image file</Description>
       </Img>
@@ -107,7 +107,7 @@
           <Base>0x0</Base>
           <Size>0x0</Size>
         </Block>
-        <File>atf.img.1</File>
+        <File>atf_b_bl31_signed.bin</File>
         <Auth algo="0" />
         <Description>Download atf_b image file</Description>
       </Img>
@@ -118,7 +118,7 @@
           <Base>0x0</Base>
           <Size>0x0</Size>
         </Block>
-        <File>uboot.bin</File>
+        <File>u-boot_signed.bin</File>
         <Auth algo="0" />
         <Description>Download uboot image file</Description>
       </Img>
@@ -129,7 +129,7 @@
           <Base>0x0</Base>
           <Size>0x0</Size>
         </Block>
-        <File>uboot.bin.1</File>
+        <File>u-boot_b_signed.bin</File>
         <Auth algo="0" />
         <Description>Download uboot_b image file</Description>
       </Img>
@@ -140,7 +140,7 @@
           <Base>0x0</Base>
           <Size>0x0</Size>
         </Block>
-        <File>logo.img</File>
+        <File>axera_logo.bmp</File>
         <Auth algo="0" />
         <Description>Download logo image file</Description>
       </Img>
@@ -151,7 +151,7 @@
           <Base>0x0</Base>
           <Size>0x0</Size>
         </Block>
-        <File>logo.img.1</File>
+        <File>axera_logo.bmp.1</File>
         <Auth algo="0" />
         <Description>Download logo_b image file</Description>
       </Img>
@@ -162,7 +162,7 @@
           <Base>0x0</Base>
           <Size>0x0</Size>
         </Block>
-        <File>optee.img</File>
+        <File>optee_signed.bin</File>
         <Auth algo="0" />
         <Description>Download optee image file</Description>
       </Img>
@@ -173,7 +173,7 @@
           <Base>0x0</Base>
           <Size>0x0</Size>
         </Block>
-        <File>optee.img.1</File>
+        <File>optee_signed.bin.1</File>
         <Auth algo="0" />
         <Description>Download optee_b image file</Description>
       </Img>
@@ -184,7 +184,7 @@
           <Base>0x0</Base>
           <Size>0x0</Size>
         </Block>
-        <File>dtb.img</File>
+        <File>AX630C_emmc_arm64_k419_sipeed_nanokvm_signed.dtb</File>
         <Auth algo="0" />
         <Description>Download dtb image file</Description>
       </Img>
@@ -195,7 +195,7 @@
           <Base>0x0</Base>
           <Size>0x0</Size>
         </Block>
-        <File>dtb.img.1</File>
+        <File>AX630C_emmc_arm64_k419_sipeed_nanokvm_signed.dtb.1</File>
         <Auth algo="0" />
         <Description>Download dtb_b image file</Description>
       </Img>
@@ -206,7 +206,7 @@
           <Base>0x0</Base>
           <Size>0x0</Size>
         </Block>
-        <File>kernel.img</File>
+        <File>boot_signed.bin</File>
         <Auth algo="0" />
         <Description>Download kernel image file</Description>
       </Img>
@@ -217,7 +217,7 @@
           <Base>0x0</Base>
           <Size>0x0</Size>
         </Block>
-        <File>kernel.img.1</File>
+        <File>boot_signed.bin.1</File>
         <Auth algo="0" />
         <Description>Download kernel_b image file</Description>
       </Img>
@@ -228,7 +228,7 @@
           <Base>0x0</Base>
           <Size>0x0</Size>
         </Block>
-        <File>bootfs.vfat</File>
+        <File>bootfs.fat32</File>
         <Auth algo="0" />
         <Description>Download boot image file</Description>
       </Img>
@@ -239,7 +239,7 @@
           <Base>0x0</Base>
           <Size>0x0</Size>
         </Block>
-        <File>rootfs_sparse.ext4</File>
+        <File>ubuntu_rootfs_sparse.ext4</File>
         <Auth algo="0" />
         <Description>Download rootfs image file</Description>
       </Img>
@@ -250,7 +250,7 @@
           <Base>0x0</Base>
           <Size>0x0</Size>
         </Block>
-        <File>spl.img</File>
+        <File>spl_AX630C_emmc_arm64_k419_sipeed_nanokvm_signed.bin</File>
         <Auth algo="0" />
         <Description>Download spl image file</Description>
       </Img>
