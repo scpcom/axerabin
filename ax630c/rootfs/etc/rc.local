@@ -2,7 +2,7 @@
 
 mkdir -p /opt/data/AXSyslog/kernel
 
-bash/etc/init.d/axemac.sh
+bash /etc/init.d/axemac.sh
 
 chmod 755 /soc/scripts/auto_load_all_drv.sh
 bash /soc/scripts/auto_load_all_drv.sh
