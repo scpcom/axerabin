@@ -13,6 +13,7 @@ import struct
 
 aes_key_file = None
 small_size_nor = None
+sd_fat = None
 def gen_rsa_2048_keys():
     try:
         (pubkey, prvkey) = rsa.newkeys(2048)
@@ -42,6 +43,7 @@ def print_usage():
     print('  -cap  :  input capability of header field\n')
     print('  -riscv  :  input original riscv file path, the file size must be less than 512K bytes\n')
     print('  -small_size_nor  :  Declares that the nor project generates an image of small memory\n')
+    print('  -sd_fat  :  Declares that the nor project generates an image for sd fat\n')
 
 '''
 struct img_header{
@@ -274,6 +276,8 @@ def do_spl(in_file, pub_file, prv_file, out_file, fw_file, riscv_file, capabilit
     hdr.sig_header = 0x01000800
     if PKG_SIZE == 0x40000:
         hdr.nand_nor_cfg = 0x06010509
+    elif sd_fat == 1:
+        hdr.nand_nor_cfg = 0x01313504
     else:
         hdr.nand_nor_cfg = 0x06010504
     hdr.ocm_start_addr = 0x03000400
@@ -407,6 +411,8 @@ if __name__ == '__main__':
             aes_key_file = sys.argv[i + 1]
         elif sys.argv[i] == '-small_size_nor':
             small_size_nor = 1
+        elif sys.argv[i] == '-sd_fat':
+            sd_fat = 1
 
     if in_file is None or pub_file is None or prv_file is None or out_file is None or fw_file is None:
         print('[error] param is invalid\n')
