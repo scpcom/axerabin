@@ -75,6 +75,8 @@ function load_drv()
 {
     echo "run auto_load_all_drv.sh start "
     insmod /soc/ko/hynitron_touch.ko
+    insmod /soc/ko/cw2015_battery.ko
+    insmod /soc/ko/rtc-pcf8563.ko
     insmod /soc/ko/ax_sys.ko
 
     cmm_param=$(get_cmm_param)
