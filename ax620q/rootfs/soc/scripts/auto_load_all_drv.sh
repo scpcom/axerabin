@@ -10,33 +10,16 @@ if [ -f /boot/configs ]; then
     . /boot/configs
 fi
 
-OS_MEM_MIN_SZIE=256
-BOARD_ID_0_5G=2
-BOARD_ID_1G=5
-BOARD_ID_2G=10
-BOARD_ID_4G=14
+OS_MEM_MIN_SZIE=0
 
 function get_board_id()
 {
-    adc_val=$(cat /sys/bus/iio/devices/iio:device0/in_voltage0_raw)
-    board_id=$(( ( ($adc_val - 0x20) / 0x40 ) + 1 ))
-    echo "$board_id"
+    echo 0
 }
 
 function get_emmc_size()
 {
-    board_id=$(get_board_id)
-    if [ $board_id -eq ${BOARD_ID_0_5G} ]; then
-        echo 512
-    elif [ $board_id -eq ${BOARD_ID_1G} ]; then
-        echo 1024
-    elif [ $board_id -eq ${BOARD_ID_2G} ]; then
-        echo 2048
-    elif [ $board_id -eq ${BOARD_ID_4G} ]; then
-        echo 4096
-    else
-        echo 512
-    fi
+    echo 256
 }
 
 function get_os_mem_size()
@@ -74,11 +57,7 @@ function get_cmm_param()
 function load_drv()
 {
     echo "run auto_load_all_drv.sh start "
-    insmod /soc/ko/hynitron_touch.ko
-    insmod /soc/ko/cw2015_battery.ko
-    insmod /soc/ko/rtc-pcf8563.ko
     insmod /soc/ko/ax_sys.ko
-
     cmm_param=$(get_cmm_param)
     echo "insmod ax_cmm, param: $cmm_param"
     insmod /soc/ko/ax_cmm.ko $cmm_param
@@ -90,34 +69,22 @@ function load_drv()
     insmod /soc/ko/ax_gdc.ko
     insmod /soc/ko/ax_tdp.ko
     insmod /soc/ko/ax_vo.ko
-    insmod /soc/ko/ax_fb.ko
     insmod /soc/ko/ax_venc.ko
     insmod /soc/ko/ax_jenc.ko
-    insmod /soc/ko/ax_vdec.ko
     insmod /soc/ko/ax_mipi_rx.ko
-    insmod /soc/ko/ax_proton.ko mem_iq_level=1
-    insmod /soc/ko/ax_mipi_switch.ko
+    insmod /soc/ko/ax_proton.ko
     insmod /soc/ko/ax_audio.ko
-    insmod /soc/ko/ax_ddr_dfs.ko
-    insmod /soc/ko/ax_ive.ko
-    insmod /soc/ko/ax_avs.ko
 
     echo "run auto_load_all_drv.sh end "
 }
 
 function remove_drv()
 {
-    rmmod ax_avs
-    rmmod ax_ive
-    rmmod ax_ddr_dfs
     rmmod ax_audio
-    rmmod ax_mipi_switch
     rmmod ax_proton
     rmmod ax_mipi_rx
-    rmmod ax_vdec
     rmmod ax_jenc
     rmmod ax_venc
-    rmmod ax_fb
     rmmod ax_vo
     rmmod ax_tdp
     rmmod ax_gdc
@@ -128,7 +95,6 @@ function remove_drv()
     rmmod ax_pool
     rmmod ax_cmm
     rmmod ax_sys
-    rmmod hynitron_touch
 }
 
 function auto_drv()
