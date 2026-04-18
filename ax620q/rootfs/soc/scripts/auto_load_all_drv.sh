@@ -11,20 +11,26 @@ if [ -f /boot/configs ]; then
 fi
 
 OS_MEM_MIN_SZIE=0
+BOARD_ID_256M=16
 
 function get_board_id()
 {
-    echo 0
+    adc_val=$(cat /sys/bus/iio/devices/iio:device0/in_voltage0_raw)
+    board_id=$(( ( ($adc_val - 0x20) / 0x40 ) + 1 ))
+    echo "$board_id"
 }
 
 function get_emmc_size()
 {
-    echo 256
+    board_id=$(get_board_id)
+    if [ $board_id -eq ${BOARD_ID_256M} ]; then
+        echo 256
+    fi
 }
 
 function get_os_mem_size()
 {
-    $(cat /proc/cmdline | grep -o "mem=[0-9]*M" | sed 's/mem=\([0-9]*\)M/\1/')
+    cat /proc/cmdline | grep -o "mem=[0-9]*M" | sed 's/mem=\([0-9]*\)M/\1/'
 }
 
 function get_cmm_size()
@@ -58,6 +64,7 @@ function load_drv()
 {
     echo "run auto_load_all_drv.sh start "
     insmod /soc/ko/ax_sys.ko
+
     cmm_param=$(get_cmm_param)
     echo "insmod ax_cmm, param: $cmm_param"
     insmod /soc/ko/ax_cmm.ko $cmm_param
@@ -69,22 +76,34 @@ function load_drv()
     insmod /soc/ko/ax_gdc.ko
     insmod /soc/ko/ax_tdp.ko
     insmod /soc/ko/ax_vo.ko
+    insmod /soc/ko/ax_fb.ko
     insmod /soc/ko/ax_venc.ko
     insmod /soc/ko/ax_jenc.ko
+    insmod /soc/ko/ax_vdec.ko
     insmod /soc/ko/ax_mipi_rx.ko
-    insmod /soc/ko/ax_proton.ko
+    insmod /soc/ko/ax_proton.ko mem_iq_level=1
+    insmod /soc/ko/ax_mipi_switch.ko
     insmod /soc/ko/ax_audio.ko
+    insmod /soc/ko/ax_ddr_dfs.ko
+    insmod /soc/ko/ax_ive.ko
+    insmod /soc/ko/ax_avs.ko
 
     echo "run auto_load_all_drv.sh end "
 }
 
 function remove_drv()
 {
+    rmmod ax_avs
+    rmmod ax_ive
+    rmmod ax_ddr_dfs
     rmmod ax_audio
+    rmmod ax_mipi_switch
     rmmod ax_proton
     rmmod ax_mipi_rx
+    rmmod ax_vdec
     rmmod ax_jenc
     rmmod ax_venc
+    rmmod ax_fb
     rmmod ax_vo
     rmmod ax_tdp
     rmmod ax_gdc
